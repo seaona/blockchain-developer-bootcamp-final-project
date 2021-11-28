@@ -26,10 +26,29 @@ This project aims to become a tool for selling space on your website for introdu
 
 ```npx hardhat run --network localhost scripts/deploy.js```
 
-![smart-contract-setup](public/smart-contract-setup.mp4)
+![smart-contract-setup](public/smart-contract-setup.gif)
 
-<video width="320" height="240" controls>
-  <source src="public/smart-contract-setup.mp4" type="video/mp4">
-</video>
 
 ### Frontend
+1. Go to `minter-dapp` folder:
+
+```cd minter-contracts```
+
+2. Install the required dependencies
+
+```npm i```
+
+3. Run the frontend client:
+
+## Dependencies and Credits
+Frontend: 
+- React
+- Starter Setup based on [Alchemy's NFT Minter tutorial](https://docs.alchemyapi.io/alchemy/tutorials/nft-minter)
+- Metamask provider
+
+Smart Contracts:
+- Hardhat as development environment for compiling, depoying and testing the smart contracts
+- Networks configured: Ropsten and Localhost
+- Etherscan API for contract verification
+
+
