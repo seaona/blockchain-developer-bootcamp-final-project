@@ -164,7 +164,7 @@ contract("AdsManager", function (accounts) {
 
 
     it("should number of Ads increas by 3 after adding 3 types of Ad Spaces", async () => {
-      await instance.addSmallAdvertisementSpace({ from: _owner });
+      await instance.addSmallAdvertisementSpace({ from: alice });
       await instance.addMediumAdvertisementSpace({ from: _owner });
       await instance.addBigAdvertisementSpace({ from: _owner });
       const result = await instance.adsCounter.call();

@@ -60,7 +60,7 @@ contract Pausable is Ownable {
     }
 
     /// @dev Resume contract when it' not paused
-    function resumeContract() public onlyOwner whenNotPaused {
+    function resumeContract() public onlyOwner paused {
         _paused = false;
         emit ResumeContract(msg.sender);
     }
@@ -76,7 +76,7 @@ contract Pausable is Ownable {
         _;
     }
 
-    /// @dev 'whenNotPaused' modifier that throws if contract is Not Paused.
+    /// @dev 'Paused' modifier that throws if contract is Not Paused.
     modifier paused() {
         require(_paused == true, "Contract not Paused!");
         _;

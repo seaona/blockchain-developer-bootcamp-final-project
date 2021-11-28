@@ -88,7 +88,7 @@ contract AdsManager is Pausable {
     /********************************************************************************************/
     /// @dev Get the total number of Ads Areas
     /// @return Total Ads Areas
-    function getAdsCounter() public returns (uint256) {
+    function getAdsCounter() public view returns (uint256) {
         return adsCounter;
     }
     
@@ -168,6 +168,30 @@ contract AdsManager is Pausable {
 
         emit BigAdAreaAdded(Size.Big);
         return totalAdAreaAvailable;
+    }
+
+    function revokeAdFromBrand(uint32 _adId) public onlyOwner whenNotPaused returns (bool) {
+        require(ads[_adId].state == State.Sold, "This Advertisement space is already available");
+
+        uint256 adSize;
+
+        if(ads[_adId].size==Size.Big) {
+            adSize = 50;
+        }
+        if(ads[_adId].size==Size.Medium) {
+            adSize = 25;
+        }
+
+        if(ads[_adId].size==Size.Small) {
+            adSize = 10;
+        }
+
+        ads[_adId].state = State.ForSale;
+        ads[_adId].owner = payable(msg.sender);
+        ads[_adId].brand = "For Sale";
+
+        totalAdAreaAvailable = totalAdAreaAvailable + adSize;
+        return true;
     }
 
     /// @dev Brand buys Advertisement Area
