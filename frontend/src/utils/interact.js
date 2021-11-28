@@ -6,7 +6,7 @@ const { createAlchemyWeb3 } = require("@alch/alchemy-web3");
 const web3 = createAlchemyWeb3(alchemyKey); 
 
 const contractABI = require('../contract-abi.json')
-const contractAddress = "0xeB52e716B191b8ecE62aE9f6F8A795394E1960c4";
+const contractAddress = "0xbE25527cE648161f43515Ee14E3D98B362AcD536";
 
 export const connectWallet = async () => {
     if (window.ethereum) {
@@ -85,6 +85,69 @@ export const getCurrentWalletConnected = async () => {
       };
     }
 };
+
+export const resumeContract = async() => {
+  //load smart contract
+  window.contract = await new web3.eth.Contract(contractABI, contractAddress);
+
+  //set up your Ethereum transaction
+  const transactionParameters = {
+      to: contractAddress, // Required except during contract publications.
+      from: window.ethereum.selectedAddress, // must match user's active address.
+      'data': window.contract.methods.resumeContract().encodeABI()//make call to NFT smart contract 
+  };
+
+  //sign the transaction via Metamask
+  try {
+  const txHash = await window.ethereum
+      .request({
+          method: 'eth_sendTransaction',
+          params: [transactionParameters],
+      });
+  return {
+      success: true,
+      status: "✅ Check out your transaction on Etherscan: https://rinkeby.etherscan.io/tx/" + txHash
+  }
+  } catch (error) {
+  return {
+      success: false,
+      status: "😥 Something went wrong: " + error.message
+  }
+
+  }
+}
+
+
+export const pauseContract = async() => {
+  //load smart contract
+  window.contract = await new web3.eth.Contract(contractABI, contractAddress);
+
+  //set up your Ethereum transaction
+  const transactionParameters = {
+      to: contractAddress, // Required except during contract publications.
+      from: window.ethereum.selectedAddress, // must match user's active address.
+      'data': window.contract.methods.pauseContract().encodeABI()//make call to NFT smart contract 
+  };
+
+  //sign the transaction via Metamask
+  try {
+  const txHash = await window.ethereum
+      .request({
+          method: 'eth_sendTransaction',
+          params: [transactionParameters],
+      });
+  return {
+      success: true,
+      status: "✅ Check out your transaction on Etherscan: https://rinkeby.etherscan.io/tx/" + txHash
+  }
+  } catch (error) {
+  return {
+      success: false,
+      status: "😥 Something went wrong: " + error.message
+  }
+
+  }
+}
 
 export const mintNFT = async(url, name, description) => {
     //error handling

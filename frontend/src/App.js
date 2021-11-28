@@ -1,10 +1,10 @@
 import './App.css';
-import Minter from './Minter'
+import AdsManager from './AdsManager'
 
 function App() {
   return (
     <div className="App">
-      <Minter></Minter>
+      <AdsManager></AdsManager>
     </div>
   );
 }

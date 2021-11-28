@@ -85,6 +85,9 @@ For implementing this, after deploying to the network (testnet or mainnet) you c
 After some minutes, you should see this on your console:
 ![](public/contract-verify.png)
 
+### Contract Events
+This project is designed with the user interface in mind. For that, most of the functions of the smart contract trigger events. The events can be found on the Events tag of Etherscan.
+![](public/contract-events.png)
 
 ### GasPrice Calculation
 For each network, if unspecified, transaction options will default to the following values:
@@ -128,3 +131,4 @@ Ethereum Account for Certification: 0x0297196d753045df822C67d23F9aB10c7128b102
 - [ ] Choose Ad position by Priority (enum Position {Best, Medium, Worse}) depending on the visibility of the position
 - [ ] Add more units tests to include test coverage
 - [ ] Build this as a pluggable extension for any website
+- [ ] Event indexing for a better UI/UX experience
