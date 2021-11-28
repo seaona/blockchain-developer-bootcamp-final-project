@@ -15,11 +15,11 @@ contract AdsManager {
 
     // Contract Ownership and Contract State
     address public owner;
-    bool private operational = true;
+    bool public operational = true;
 
     // Ads Management
     mapping (uint => Ad) ads;
-    enum State { ForSale, Sold, Deleted }
+    enum State { ForSale, Sold }
     enum Size { Big, Medium, Small }
     uint256 totalAdArea = 100;
 
