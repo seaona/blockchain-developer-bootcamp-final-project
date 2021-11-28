@@ -1,2 +1,3 @@
 Network: Rinkeby
-Deployed Contract Address: 
+Deployed Contract Address: 0xbE25527cE648161f43515Ee14E3D98B362AcD536
+Contract Verified on Etherscan: https://rinkeby.etherscan.io/address/0xbE25527cE648161f43515Ee14E3D98B362AcD536

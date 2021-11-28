@@ -1,4 +1,8 @@
 # Manage Ads for your Website
+
+## Overview
+![](public/deployment-steps.mp4)
+
 ## Summary
 This project aims to become a tool for selling space on your website for advertisement purposes. Brands can buy Ad Space from your website.
 
@@ -16,6 +20,16 @@ This project aims to become a tool for selling space on your website for adverti
 
 ## Project Patterns
 [Design Patterns](design_pattern_decisions.md) and [Security Practices](avoiding_common_attacks.md) used in this project, for avoiding common attacks can be found on the corresponding files.
+## High Level Overview
+In the following console print you can see a high level overview of the project functionalities.
+
+![](public/high-level-overview.png)
+
+This export has been done using Surya capabilities, a [tool](https://github.com/ConsenSys/surya) developed by Consensys.
+You can install it by following their repo instructions and run the command:
+
+``surya ftrace APMRegistry::_newRepo all MyContract.sol``
+
 
 ## Local Build
 ### Pre Requisites
@@ -23,6 +37,10 @@ This project aims to become a tool for selling space on your website for adverti
 2. Setup environment: create .env file (copy .env.safe) and include your Infura, mnemonic and EtherScan API
 
 ### Smart Contracts
+This is the example of the run of the following commands:
+
+![](public/setup-and-tests.gif)
+
 1. Go to `contacts` folder:
 
 ```cd contracts```
@@ -43,6 +61,38 @@ This project aims to become a tool for selling space on your website for adverti
 4. Run Smart Contract Unit Tests:
 
 ```truffle compile```
+
+![](public/tests.png)
+
+### Verify Source Code on EtherScan
+It is possible to verify and publish the code of your contract(s), so anyone can audit it on the blockchain. If you implement this, people will be able to see all the code and interact with the contract on the Read/Write tabs.
+
+![](public/contract-verified.gif)
+
+For implementing this, after deploying to the network (testnet or mainnet) you can follow these steps:
+
+- Install the dev dependency truffle-plugin-verify (already installed if you used the last package.json file)
+- Include ETHERSCAN_API_KEY= for interacting with EtherScan
+- Check plugin is added to the truffle-config file
+- Run the following command on the terminal: 
+
+```npx truffle run verify ContractName --network rinkeby```
+
+After some minutes, you should see this on your console:
+![](public/contract-verify.png)
+
+
+### GasPrice Calculation
+For each network, if unspecified, transaction options will default to the following values:
+- gas: Gas limit used for deploys. Default is 6721975.
+- gasPrice: Gas price used for deploys. Default is 20000000000 (20 Gwei).
+
+For checking the rela time gasPrice, go to [Eth Gas Station](https://ethgasstation.info/) and for converting Gwei to Wei check the [Eth Unit Converter](https://coinguides.org/ethereum-unit-converter-gwei-ether/).
+
+Deploying this contracted costed on Rinkeby:
+![](public/gas-used.png)
+
+
 
 ### Frontend
 1. Go to `frontend` folder:
@@ -67,5 +117,5 @@ This project aims to become a tool for selling space on your website for adverti
 - Metamask provider
 
 
-## Site Note
+## Site Notes
 Ethereum Account for Certification: 0x0297196d753045df822C67d23F9aB10c7128b102

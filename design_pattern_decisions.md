@@ -1,7 +1,9 @@
 # Design Patterns Desicions
 Design patterns used in this project:
 - **Access Control Design Patterns**: this project has in place access controls for specific functions. These are applied in the form of Contract Owner and Advertisement Area Owner and restricted some functions depending on the address, with the help of modifiers.
-- **Upgradable Contracts**: this project takes into account software development lifecycle. For this reason, the contract can be stopped and upgreadble by the contract owner. Ownership of the contract can be transferred too.
+    - Example: function call from unathorized account makes test fail
+![](public/unauthorized-account.png)
+- **Upgradable/Lifecycle Contracts**: this project takes into account software development lifecycle. For this reason, the contract can be paused and (in the future) upgreadble by the contract owner. Ownership of the contract can be transferred too.
     - Contract has a State (operational or not): ``bool public operational = true;``
     - Contract State can be modified: ``function setOperatingStatus(bool mode) public onlyOwner``
 
