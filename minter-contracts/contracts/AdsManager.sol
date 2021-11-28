@@ -99,11 +99,19 @@ contract AdsManager {
 
     function increaseAdArea(uint256 increasingArea) public onlyOwner returns (uint256) {
         totalAdArea = totalAdArea + increasingArea;
+
+        emit AdAreaIncreased(totalAdArea);
         return totalAdArea;
     }
 
     function decreaseAdArea(uint256 decreasingArea) public onlyOwner returns (uint256) {
         totalAdArea = totalAdArea - decreasingArea;
+        
+        emit AdAreaDecreased(totalAdArea);
+        return totalAdArea;
+    }
+
+    function getTotalAdArea() public returns(uint256) {
         return totalAdArea;
     }
     

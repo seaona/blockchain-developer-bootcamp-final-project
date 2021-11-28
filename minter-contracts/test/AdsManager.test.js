@@ -9,7 +9,11 @@ contract("AdsManager", function (accounts) {
 
   const price = "1000";
   const excessAmount = "2000";
-  const name = "book";
+
+  const initialArea = "100";
+  const increasingArea = "10";
+  const decreasingArea = "5";
+  const adId = "0";
 
   let instance;
 
@@ -134,4 +138,69 @@ contract("AdsManager", function (accounts) {
       });
     });
   });
+
+  describe("Use cases", () => {
+    it("should increase Ad Area with the provided increased value", async () => {
+      const totalAdAreaBefore = await instance.getTotalAdArea.call(0);
+      await instance.increaseAdArea(increasingArea, { from: _owner });
+      const totalAdAreaAfter = await instance.getTotalAdArea.call(0);
+      assert.
+      assert.notEqual(
+        totalAdAreaBefore,
+        totalAdAreaAfter,
+        'the total Ad Area should have increased',
+      );
+      
+    });
+    
+    // Events Check
+
+    it("should emit a AdAreaIncreased event when Ad Area is increased", async () => {
+      let eventEmitted = false;
+      const tx = instance.increaseAdArea(increasingArea, { from: _owner });
+      await tx 
+      .on('data', function(event){
+        eventEmitted = true;
+        console.log(event);
+      })
+      .on('error', console.error);
+    });
+
+    it("should emit a AdAreaDecreased event when Ad Area is decreased", async () => {
+      let eventEmitted = false;
+      const tx = instance.decreaseAdArea(decreasingArea, { from: _owner });
+      await tx 
+      .on('data', function(event){
+        eventEmitted = true;
+        console.log(event);
+      })
+      .on('error', console.error);
+    });
+
+
+    it("should emit a AdAreaBought event when Ad Area is bought", async () => {
+      let eventEmitted = false;
+      const tx = instance.buyAdArea(adId, { from: _owner });
+      await tx 
+      .on('data', function(event){
+        eventEmitted = true;
+        console.log(event);
+      })
+      .on('error', console.error);
+    });
+
+
+    it("should emit a AdAreaForSale event when Ad Area is set for sale", async () => {
+      let eventEmitted = false;
+      const tx = instance.setForSaleAdArea(adId, { from: _owner });
+      await tx 
+      .on('data', function(event){
+        eventEmitted = true;
+        console.log(event);
+      })
+      .on('error', console.error);
+    });
+    
+  });
+
 });
