@@ -121,5 +121,10 @@ Deploying this contracted costed on Rinkeby:
 - Metamask provider
 
 
-## Site Notes
+## Public Ethereum Address for Certification
 Ethereum Account for Certification: 0x0297196d753045df822C67d23F9aB10c7128b102
+
+## Next Steps
+- [ ] Choose Ad position by Priority (enum Position {Best, Medium, Worse}) depending on the visibility of the position
+- [ ] Add more units tests to include test coverage
+- [ ] Build this as a pluggable extension for any website
