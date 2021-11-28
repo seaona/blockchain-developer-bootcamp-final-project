@@ -1,9 +1,9 @@
 async function main() {
-    const NFTGenerator = await ethers.getContractFactory("NFTGenerator")
+    const AdsManager = await ethers.getContractFactory("AdsManager")
   
     // Start deployment, returning a promise that resolves to a contract object
-    const NFTGeneratorInstance = await NFTGenerator.deploy()
-    console.log("Contract deployed to address:", NFTGeneratorInstance.address)
+    const AdsManagerInstance = await AdsManager.deploy()
+    console.log("Contract deployed to address:", AdsManagerInstance.address)
   }
   
   main()
