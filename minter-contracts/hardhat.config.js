@@ -14,6 +14,9 @@ module.exports = {
       ropsten: {
          url: API_URL,
          accounts: [`0x${PRIVATE_KEY}`]
+      },
+      localhost: {
+         url: "http://localhost:8545"
       }
    },
    etherscan: {
