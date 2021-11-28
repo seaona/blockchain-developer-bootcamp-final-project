@@ -10,7 +10,8 @@ Design patterns used in this project:
     - using Structs instead of multiple varibles. I.e. ``Struct Ad``
     - using constant instead of immutable as it's cheaper. I.e. ``uint256 constant totalAdMaxArea = 200;``
     - using bytes over string when possible. I.e. ``bytes32 brand``
-    - incrementing value by using variable++ as it's cheaper. I.e. ``id++``
+    - incrementing value by using variable++ as it's cheaper. I.e. ``adsCounter++;``
     - preferring the use of modifiers instead of requires, as are cheaper. I.e. ``onlyOwner, paidEnough``
-- **Inheritance and Interfaces**: this project uses SafeMath.sol library from OpenZeppelin to avoid overflow and underflow.
-    - ``using SafeMath for uint256;``
+- **Inheritance and Interfaces**: this project uses inheritance since to main contract ``AdsManager`` inherits from ``Pausable`` contract. Furthermore, it uses an external library, ``SafeMath.sol``, from OpenZeppelin to avoid overflow and underflow effects on addition and substraction operations.
+    - Inheritance: ``contract AdsManager is Pausable``
+    - Use of SafeMath library: ``using SafeMath for uint256;``
