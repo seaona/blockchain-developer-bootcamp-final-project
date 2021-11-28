@@ -1,7 +1,11 @@
 # Manage Ads for your Website
 
 ## Overview
-![](public/deployment-steps.mp4)
+Deployment Process walk through
+
+[![](https://img.youtube.com/vi/hd_inZSWP00/1.jpg)](https://www.youtube.com/watch?v=hd_inZSWP00)
+
+Frontend walk through
 
 ## Summary
 This project aims to become a tool for selling space on your website for advertisement purposes. Brands can buy Ad Space from your website.
