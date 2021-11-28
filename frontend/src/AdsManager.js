@@ -3,7 +3,13 @@ import {
   connectWallet, 
   getCurrentWalletConnected, 
   resumeContract, 
-  pauseContract 
+  pauseContract,
+  transferOwnership,
+  addSmallAdvertisementSpace,
+  addMediumAdvertisementSpace,
+  addBigAdvertisementSpace,
+  revokeAdFromBrand,
+  buyAdArea
 } from "./utils/interact";
 
 const AdsManager = (props) => {
@@ -81,7 +87,7 @@ const AdsManager = (props) => {
       <br></br>
       <h1 id="title">Blogger Page XYZ</h1>
       <p>
-        Simply add your asset's link, name, and description, then press "Mint."
+        This is my professional blog. If you want to buy an Advertise space in this website just click on the Buy button
       </p>
       <form>
         <h2>🖼 Blog Entry 1</h2>

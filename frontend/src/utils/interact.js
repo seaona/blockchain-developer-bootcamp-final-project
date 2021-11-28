@@ -8,6 +8,10 @@ const web3 = createAlchemyWeb3(alchemyKey);
 const contractABI = require('../contract-abi.json')
 const contractAddress = "0xbE25527cE648161f43515Ee14E3D98B362AcD536";
 
+/********************************************************************************************/
+/*                                 WALLET CONNECTION FUNCTIONS                              */
+/********************************************************************************************/
+
 export const connectWallet = async () => {
     if (window.ethereum) {
       try {
@@ -86,6 +90,11 @@ export const getCurrentWalletConnected = async () => {
     }
 };
 
+
+ /********************************************************************************************/
+ /*                                       OWNER FUNCTIONS                                    */
+ /********************************************************************************************/
+
 export const resumeContract = async() => {
   //load smart contract
   window.contract = await new web3.eth.Contract(contractABI, contractAddress);
@@ -148,6 +157,167 @@ export const pauseContract = async() => {
 
   }
 }
+
+
+export const transferOwnership = async() => {
+  //load smart contract
+  window.contract = await new web3.eth.Contract(contractABI, contractAddress);
+
+  //set up your Ethereum transaction
+  const transactionParameters = {
+      to: contractAddress, // Required except during contract publications.
+      from: window.ethereum.selectedAddress, // must match user's active address.
+      'data': window.contract.methods.transferOwnership().encodeABI()//make call to NFT smart contract 
+  };
+
+  //sign the transaction via Metamask
+  try {
+  const txHash = await window.ethereum
+      .request({
+          method: 'eth_sendTransaction',
+          params: [transactionParameters],
+      });
+  return {
+      success: true,
+      status: "✅ Check out your transaction on Etherscan: https://rinkeby.etherscan.io/tx/" + txHash
+  }
+  } catch (error) {
+  return {
+      success: false,
+      status: "😥 Something went wrong: " + error.message
+  }
+
+  }
+}
+
+export const addSmallAdvertisementSpace = async() => {
+  //load smart contract
+  window.contract = await new web3.eth.Contract(contractABI, contractAddress);
+
+  //set up your Ethereum transaction
+  const transactionParameters = {
+      to: contractAddress, // Required except during contract publications.
+      from: window.ethereum.selectedAddress, // must match user's active address.
+      'data': window.contract.methods.addSmallAdvertisementSpace().encodeABI()//make call to NFT smart contract 
+  };
+
+  //sign the transaction via Metamask
+  try {
+  const txHash = await window.ethereum
+      .request({
+          method: 'eth_sendTransaction',
+          params: [transactionParameters],
+      });
+  return {
+      success: true,
+      status: "✅ Check out your transaction on Etherscan: https://rinkeby.etherscan.io/tx/" + txHash
+  }
+  } catch (error) {
+  return {
+      success: false,
+      status: "😥 Something went wrong: " + error.message
+  }
+
+  }
+}
+
+export const addMediumAdvertisementSpace = async() => {
+  //load smart contract
+  window.contract = await new web3.eth.Contract(contractABI, contractAddress);
+
+  //set up your Ethereum transaction
+  const transactionParameters = {
+      to: contractAddress, // Required except during contract publications.
+      from: window.ethereum.selectedAddress, // must match user's active address.
+      'data': window.contract.methods.addMediumAdvertisementSpace().encodeABI()//make call to NFT smart contract 
+  };
+
+  //sign the transaction via Metamask
+  try {
+  const txHash = await window.ethereum
+      .request({
+          method: 'eth_sendTransaction',
+          params: [transactionParameters],
+      });
+  return {
+      success: true,
+      status: "✅ Check out your transaction on Etherscan: https://rinkeby.etherscan.io/tx/" + txHash
+  }
+  } catch (error) {
+  return {
+      success: false,
+      status: "😥 Something went wrong: " + error.message
+  }
+
+  }
+}
+
+
+export const addBigAdvertisementSpace = async() => {
+  //load smart contract
+  window.contract = await new web3.eth.Contract(contractABI, contractAddress);
+
+  //set up your Ethereum transaction
+  const transactionParameters = {
+      to: contractAddress, // Required except during contract publications.
+      from: window.ethereum.selectedAddress, // must match user's active address.
+      'data': window.contract.methods.addBigAdvertisementSpace().encodeABI()//make call to NFT smart contract 
+  };
+
+  //sign the transaction via Metamask
+  try {
+  const txHash = await window.ethereum
+      .request({
+          method: 'eth_sendTransaction',
+          params: [transactionParameters],
+      });
+  return {
+      success: true,
+      status: "✅ Check out your transaction on Etherscan: https://rinkeby.etherscan.io/tx/" + txHash
+  }
+  } catch (error) {
+  return {
+      success: false,
+      status: "😥 Something went wrong: " + error.message
+  }
+
+  }
+}
+
+export const revokeAdFromBrand = async(adId) => {
+  //load smart contract
+  window.contract = await new web3.eth.Contract(contractABI, contractAddress);
+
+  //set up your Ethereum transaction
+  const transactionParameters = {
+      to: contractAddress, // Required except during contract publications.
+      from: window.ethereum.selectedAddress, // must match user's active address.
+      'data': window.contract.methods.revokeAdFromBrand(adId).encodeABI()//make call to NFT smart contract 
+  };
+
+  //sign the transaction via Metamask
+  try {
+  const txHash = await window.ethereum
+      .request({
+          method: 'eth_sendTransaction',
+          params: [transactionParameters],
+      });
+  return {
+      success: true,
+      status: "✅ Check out your transaction on Etherscan: https://rinkeby.etherscan.io/tx/" + txHash
+  }
+  } catch (error) {
+  return {
+      success: false,
+      status: "😥 Something went wrong: " + error.message
+  }
+
+  }
+}
+ /********************************************************************************************/
+ /*                                       BUYER FUNCTIONS                                    */
+ /********************************************************************************************/
+
 
 export const mintNFT = async(url, name, description) => {
     //error handling
