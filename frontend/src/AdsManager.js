@@ -45,6 +45,21 @@ const AdsManager = (props) => {
     setStatus(status);
   };
 
+  const onAddSmallAdvertisementSpace = async () => {
+    const { status } = await addSmallAdvertisementSpace();
+    setStatus(status);
+  };
+
+  const onAddMediumAdvertisementSpace = async () => {
+    const { status } = await addMediumAdvertisementSpace();
+    setStatus(status);
+  };
+
+  const onAddBigAdvertisementSpace = async () => {
+    const { status } = await addBigAdvertisementSpace();
+    setStatus(status);
+  };
+
   
   function addWalletListener() {
     if (window.ethereum) {
@@ -117,6 +132,15 @@ const AdsManager = (props) => {
       </button>
       <button id="pauseButton" onClick={onPausePressed}>
         Pause Contract
+      </button>
+      <button id="addSmallAdvertisementSpace" onClick={onAddSmallAdvertisementSpace}>
+        Add Small Ad
+      </button>
+      <button id="addMediumAdvertisementSpace" onClick={onAddMediumAdvertisementSpace}>
+        Add Medium Ad
+      </button>
+      <button id="addSmallAdvertisementSpace" onClick={onAddBigAdvertisementSpace}>
+        Add Big Ad
       </button>
       <p id="status">
         {status}
