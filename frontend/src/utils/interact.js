@@ -319,7 +319,7 @@ export const revokeAdFromBrand = async(adId) => {
  /********************************************************************************************/
 
 
-export const mintNFT = async(url, name, description) => {
+export const buyAdArea = async(url, name, description) => {
     //error handling
     if (url.trim() == "" || (name.trim() == "" || description.trim() == "")) { 
     return {
