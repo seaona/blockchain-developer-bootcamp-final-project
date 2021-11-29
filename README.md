@@ -10,13 +10,28 @@ Deployment Process walk through
 
 
 ## Summary
-This project aims to become a tool for selling space on your website for advertisement purposes. Brands can buy Ad Space from your website.
+This project aims to become a tool for selling space on your website for advertisement purposes. Brands can buy Advertisement Space from your website.
 
 **Goal**: the goal is to define a rotatory model for owning website space by advertisers.
 
-1. The website owner generates an open position for onwing some space into their webstie, so an advertisor can add their ad.
-2. This "space" (one or many) is minted as a new NFT and an auction is open permanently for owning that asset.
-3. The owner of the Ad Area can then upload their ad and display it into the website space reserved for that ad, making the final payment to the owner of the website.
+1. The website owner can generate Advertisement spaces in his/her website and put them for Sale
+2. Brands can buy Ad spaces and place their Advertisement in the Space that they have pruchased.
+3. Advertisement Spaces come in 3 different versions:
+    - Small: this is a small advertisement area, it costs 100 units of token
+    - Medium: this is a medium advertisement area, it costs 250 units of token
+    - Big: this is a big advertisement area, it costs 500 units of token
+4. An Ad will be represented as an struct with the followign parameters:
+    ```
+    struct Ad {
+        State state;
+        Size size;
+        bytes32 brand;
+        address payable owner;
+        uint256 price;
+    }```
+5. State can be ForSale or Sold, and each Advertisement will have an owner. If the Ad is not already sol, the owner of the ad is the owner of the website.
+6. The website owner can take down existing ads.
+7. The website owner can also Pause or Resume the contract
 
 **Note**: Further tokenomics must be defined, like how often the ownership can be changed (i.e. days / months) until a new auction is open again
 
