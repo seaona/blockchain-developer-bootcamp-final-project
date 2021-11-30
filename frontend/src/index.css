@@ -13,7 +13,12 @@ code {
     monospace;
 }
 
-.Minter {
+.Container {
+  display: flex;
+  flex-direction: row;
+}
+
+.Blog {
   max-width: 80vh;
   max-height: 80vh;
   padding: 60px 100px;
@@ -22,6 +27,11 @@ code {
 
 }
 
+.Advertisement {
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-right: 2rem;
+}
 input {
   border-top-style: hidden;
   border-right-style: hidden;
@@ -83,4 +93,34 @@ button {
 
 .black {
   color: #404040 ;
+}
+
+.small-ad {
+  background-color: #404040;
+  color: white;
+  height: 5rem;
+  width: 15rem;
+  text-align: center;
+  margin-bottom: 1rem;
+  padding-top: 2.5rem;
+}
+
+.medium-ad {
+  background-color: #404040;
+  color: white;
+  height: 7rem;
+  width: 15rem;
+  text-align: center;
+  margin-bottom: 1rem;
+  padding-top: 3.5rem;
+}
+
+.big-ad {
+  background-color: #404040;
+  color: white;
+  height: 10rem;
+  width: 15rem;
+  text-align: center;
+  margin-bottom: 1rem;
+  padding-top: 5rem;
 }

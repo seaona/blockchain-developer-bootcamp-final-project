@@ -7,7 +7,7 @@ const web3 = createAlchemyWeb3(alchemyKey);
 
 const contractABI = require('../contract-abi.json')
 const contractAddress = "0xbE25527cE648161f43515Ee14E3D98B362AcD536";
-
+const etherScanAPIKey = process.env.ETHERSCAN_API_KEY;
 /********************************************************************************************/
 /*                                 WALLET CONNECTION FUNCTIONS                              */
 /********************************************************************************************/
@@ -91,9 +91,9 @@ export const getCurrentWalletConnected = async () => {
 };
 
 
- /********************************************************************************************/
- /*                                       OWNER FUNCTIONS                                    */
- /********************************************************************************************/
+/********************************************************************************************/
+/*                                       OWNER FUNCTIONS                                    */
+/********************************************************************************************/
 
 export const resumeContract = async() => {
   //load smart contract
@@ -314,10 +314,10 @@ export const revokeAdFromBrand = async(adId) => {
 
   }
 }
- /********************************************************************************************/
- /*                                       BUYER FUNCTIONS                                    */
- /********************************************************************************************/
 
+/********************************************************************************************/
+/*                                       BUYER FUNCTIONS                                    */
+/********************************************************************************************/
 
 export const buyAdArea = async(url, name, description) => {
     //error handling
@@ -372,4 +372,14 @@ export const buyAdArea = async(url, name, description) => {
     }
 
     }
+}
+
+export const smallAdEvent = async () => {
+  window.contract = await new web3.eth.Contract(contractABI, contractAddress);
+  const smallAdEvent = "0x0000000000000000000000000297196d753045df822c67d23f9ab10c7128b102"
+  const response = await fetch(`https://api-rinkeby.etherscan.io/api?module=logs&action=getLogs&fromBlock=3792247&toBlock=latest&address=${contractAddress}&topic1=${smallAdEvent}&apikey=${etherScanAPIKey}`)
+  const data = await response.json();
+  console.log(data)
+
+
 }
