@@ -1,15 +1,13 @@
 # Manage Ads for your Website
 
 ## Overview
-Deployment Process walk through
+[Deployment Process walk through](https://www.youtube.com/watch?v=hd_inZSWP00)
 
-[![](https://img.youtube.com/vi/hd_inZSWP00/0.jpg)](https://www.youtube.com/watch?v=hd_inZSWP00)
-
-Frontend Process walk through
-[![](https://img.youtube.com/vi/S5XU99J4ayk/0.jpg)](https://www.youtube.com/watch?v=S5XU99J4ayk)
+[Frontend Process walk through](https://www.youtube.com/watch?v=S5XU99J4ayk)
 
 [Live Website](https://website-ads-management.herokuapp.com/)
 
+![website](public/website.png)
 
 ## Summary
 This project aims to become a tool for selling space on your website for advertisement purposes. Brands can buy Advertisement Space from your website.
