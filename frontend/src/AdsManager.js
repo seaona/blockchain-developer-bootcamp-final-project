@@ -13,7 +13,7 @@ import {
   smallAdEvent
 } from "./utils/interact";
 
-import AdvertisementExampleTest from "./Ads";
+import Ads from "./container/Ads";
 
 const AdsManager = (props) => {
 
@@ -155,7 +155,7 @@ const AdsManager = (props) => {
         </p>
         </div>
         
-      <AdvertisementExampleTest />
+      <Ads />
     </div>
   );
 };

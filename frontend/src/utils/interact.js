@@ -380,6 +380,28 @@ export const smallAdEvent = async () => {
   const response = await fetch(`https://api-rinkeby.etherscan.io/api?module=logs&action=getLogs&fromBlock=3792247&toBlock=latest&address=${contractAddress}&topic1=${smallAdEvent}&apikey=${etherScanAPIKey}`)
   const data = await response.json();
   console.log(data)
+}
 
+export const mediumAdEvent = async () => {
+  window.contract = await new web3.eth.Contract(contractABI, contractAddress);
+  const mediumAdEvent = "0x0000000000000000000000000297196d753045df822c67d23f9ab10c7128b102"
+  const response = await fetch(`https://api-rinkeby.etherscan.io/api?module=logs&action=getLogs&fromBlock=3792247&toBlock=latest&address=${contractAddress}&topic1=${mediumAdEvent}&apikey=${etherScanAPIKey}`)
+  const data = await response.json();
+  console.log(data)
+}
 
+export const bigAdEvent = async () => {
+  window.contract = await new web3.eth.Contract(contractABI, contractAddress);
+  const bigAdEvent = "0x0000000000000000000000000297196d753045df822c67d23f9ab10c7128b102"
+  const response = await fetch(`https://api-rinkeby.etherscan.io/api?module=logs&action=getLogs&fromBlock=3792247&toBlock=latest&address=${contractAddress}&topic1=${bigAdEvent}&apikey=${etherScanAPIKey}`)
+  const data = await response.json();
+  console.log(data)
+}
+
+export const adBought = async () => {
+  window.contract = await new web3.eth.Contract(contractABI, contractAddress);
+  const adBoughtEvent = "0x0000000000000000000000000297196d753045df822c67d23f9ab10c7128b102"
+  const response = await fetch(`https://api-rinkeby.etherscan.io/api?module=logs&action=getLogs&fromBlock=3792247&toBlock=latest&address=${contractAddress}&topic1=${adBoughtEvent}&apikey=${etherScanAPIKey}`)
+  const data = await response.json();
+  console.log(data)
 }
