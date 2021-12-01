@@ -26,7 +26,7 @@ contract AdsManager is Pausable {
     uint256 public totalAdAreaTaken = 0;
 
     /// @dev Total max area for advertisement cannot be updated as website space for advertisements is limited
-    uint256 constant public totalAdMaxArea = 200;
+    uint256 constant public totalAdMaxArea = 500;
 
     /// @dev Ads can be ForSale or Sold
     enum State { ForSale, Sold }
@@ -125,6 +125,7 @@ contract AdsManager is Pausable {
         ads[adsCounter].price = 100;
 
         adsCounter++;
+        totalAdAreaTaken + 10;
 
         totalAdAreaAvailable = totalAdAreaAvailable + 10;
 
@@ -145,6 +146,7 @@ contract AdsManager is Pausable {
 
         adsCounter++;
 
+        totalAdAreaTaken + 25;
         totalAdAreaAvailable = totalAdAreaAvailable + 25;
 
         emit MediumAdAreaAdded(Size.Medium);
@@ -164,6 +166,7 @@ contract AdsManager is Pausable {
 
         adsCounter++;
 
+        totalAdAreaTaken +50;
         totalAdAreaAvailable = totalAdAreaAvailable + 50;
 
         emit BigAdAreaAdded(Size.Big);

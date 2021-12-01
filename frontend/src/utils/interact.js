@@ -4,7 +4,7 @@ const { createAlchemyWeb3 } = require("@alch/alchemy-web3");
 const web3 = createAlchemyWeb3(alchemyKey); 
 
 const contractABI = require('../contract-abi.json')
-const contractAddress = "0xbE25527cE648161f43515Ee14E3D98B362AcD536";
+const contractAddress = "0x545bD48dD06F53Ce58056f401F0F726451c95c60";
 const etherScanAPIKey = process.env.ETHERSCAN_API_KEY;
 /********************************************************************************************/
 /*                                 WALLET CONNECTION FUNCTIONS                              */
@@ -387,7 +387,7 @@ export const getNumberOfAds = async () => {
       if (err) {
         console.log("An error occured", err)
       }
-      console.log(res)
+      console.log(`Number of ads: ${res}`)
       
       return JSON.stringify(res)
   });

@@ -23,12 +23,12 @@ const AdsManager = (props) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [url, setURL] = useState("");
- 
+
   useEffect(async () => {
     const {address, status} = await getCurrentWalletConnected();
     setWallet(address);
     setStatus(status);
-    smallAdEvent();
+    getNumberOfAds();
 
     addWalletListener(); 
   }, []);
@@ -64,7 +64,10 @@ const AdsManager = (props) => {
     setStatus(status);
   };
 
-  
+  const getAds = async () => {
+    const ad = await getNumberOfAds();
+    return ad
+  }
   function addWalletListener() {
     if (window.ethereum) {
       window.ethereum.on("accountsChanged", (accounts) => {
@@ -136,7 +139,7 @@ const AdsManager = (props) => {
           {status}
         </p>
         </div>
-      <Ads />
+      <Ads ads={getAds}/>
     </div>
   );
 };
