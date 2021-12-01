@@ -6,6 +6,7 @@ Deployment Process walk through
 [![](https://img.youtube.com/vi/hd_inZSWP00/0.jpg)](https://www.youtube.com/watch?v=hd_inZSWP00)
 
 Frontend Process walk through
+[![](https://img.youtube.com/vi/S5XU99J4ayk/0.jpg)](https://www.youtube.com/watch?v=S5XU99J4ayk)
 
 [Live Website](https://website-ads-management.herokuapp.com/)
 
