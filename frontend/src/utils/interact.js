@@ -1,5 +1,3 @@
-import {pinJSONToIPFS} from './pinata.js'
-
 require('dotenv').config();
 const alchemyKey = process.env.REACT_APP_ALCHEMY_KEY;
 const { createAlchemyWeb3 } = require("@alch/alchemy-web3");
@@ -103,7 +101,7 @@ export const resumeContract = async() => {
   const transactionParameters = {
       to: contractAddress, // Required except during contract publications.
       from: window.ethereum.selectedAddress, // must match user's active address.
-      'data': window.contract.methods.resumeContract().encodeABI()//make call to NFT smart contract 
+      'data': window.contract.methods.resumeContract().encodeABI()
   };
 
   //sign the transaction via Metamask
@@ -135,7 +133,7 @@ export const pauseContract = async() => {
   const transactionParameters = {
       to: contractAddress, // Required except during contract publications.
       from: window.ethereum.selectedAddress, // must match user's active address.
-      'data': window.contract.methods.pauseContract().encodeABI()//make call to NFT smart contract 
+      'data': window.contract.methods.pauseContract().encodeABI()
   };
 
   //sign the transaction via Metamask
@@ -167,7 +165,7 @@ export const transferOwnership = async() => {
   const transactionParameters = {
       to: contractAddress, // Required except during contract publications.
       from: window.ethereum.selectedAddress, // must match user's active address.
-      'data': window.contract.methods.transferOwnership().encodeABI()//make call to NFT smart contract 
+      'data': window.contract.methods.transferOwnership().encodeABI()
   };
 
   //sign the transaction via Metamask
@@ -198,7 +196,7 @@ export const addSmallAdvertisementSpace = async() => {
   const transactionParameters = {
       to: contractAddress, // Required except during contract publications.
       from: window.ethereum.selectedAddress, // must match user's active address.
-      'data': window.contract.methods.addSmallAdvertisementSpace().encodeABI()//make call to NFT smart contract 
+      'data': window.contract.methods.addSmallAdvertisementSpace().encodeABI()
   };
 
   //sign the transaction via Metamask
@@ -229,7 +227,7 @@ export const addMediumAdvertisementSpace = async() => {
   const transactionParameters = {
       to: contractAddress, // Required except during contract publications.
       from: window.ethereum.selectedAddress, // must match user's active address.
-      'data': window.contract.methods.addMediumAdvertisementSpace().encodeABI()//make call to NFT smart contract 
+      'data': window.contract.methods.addMediumAdvertisementSpace().encodeABI()
   };
 
   //sign the transaction via Metamask
@@ -261,7 +259,7 @@ export const addBigAdvertisementSpace = async() => {
   const transactionParameters = {
       to: contractAddress, // Required except during contract publications.
       from: window.ethereum.selectedAddress, // must match user's active address.
-      'data': window.contract.methods.addBigAdvertisementSpace().encodeABI()//make call to NFT smart contract 
+      'data': window.contract.methods.addBigAdvertisementSpace().encodeABI()
   };
 
   //sign the transaction via Metamask
@@ -292,7 +290,7 @@ export const revokeAdFromBrand = async(adId) => {
   const transactionParameters = {
       to: contractAddress, // Required except during contract publications.
       from: window.ethereum.selectedAddress, // must match user's active address.
-      'data': window.contract.methods.revokeAdFromBrand(adId).encodeABI()//make call to NFT smart contract 
+      'data': window.contract.methods.revokeAdFromBrand(adId).encodeABI()
   };
 
   //sign the transaction via Metamask
@@ -319,59 +317,35 @@ export const revokeAdFromBrand = async(adId) => {
 /*                                       BUYER FUNCTIONS                                    */
 /********************************************************************************************/
 
-export const buyAdArea = async(url, name, description) => {
-    //error handling
-    if (url.trim() == "" || (name.trim() == "" || description.trim() == "")) { 
-    return {
-     success: false,
-     status: "❗Please make sure all fields are completed before minting.",
-    }
-   }
+export const buyAdArea = async(_id, _brand) => {
+  //load smart contract
+  window.contract = await new web3.eth.Contract(contractABI, contractAddress);
 
-    //make metadata
-    const metadata = new Object();
-    metadata.name = name;
-    metadata.image = url;
-    metadata.description = description;
-    
-    //make pinata call
-    const pinataResponse = await pinJSONToIPFS(metadata);
-    if (!pinataResponse.success) {
-        return {
-            success: false,
-            status: "😢 Something went wrong while uploading your tokenURI.",
-        }
-    } 
-    const tokenURI = pinataResponse.pinataUrl;  
+  //set up your Ethereum transaction
+  const transactionParameters = {
+      to: contractAddress, // Required except during contract publications.
+      from: window.ethereum.selectedAddress, // must match user's active address.
+      'data': window.contract.methods.buyAdArea(_id, _brand).encodeABI()
+  };
 
-    //load smart contract
-    window.contract = await new web3.eth.Contract(contractABI, contractAddress);
+  //sign the transaction via Metamask
+  try {
+  const txHash = await window.ethereum
+      .request({
+          method: 'eth_sendTransaction',
+          params: [transactionParameters],
+      });
+  return {
+      success: true,
+      status: "✅ Check out your transaction on Etherscan: https://rinkeby.etherscan.io/tx/" + txHash
+  }
+  } catch (error) {
+  return {
+      success: false,
+      status: "😥 Something went wrong: " + error.message
+  }
 
-    //set up your Ethereum transaction
-    const transactionParameters = {
-        to: contractAddress, // Required except during contract publications.
-        from: window.ethereum.selectedAddress, // must match user's active address.
-        'data': window.contract.methods.mintNFT(window.ethereum.selectedAddress, tokenURI).encodeABI()//make call to NFT smart contract 
-    };
-
-    //sign the transaction via Metamask
-    try {
-    const txHash = await window.ethereum
-        .request({
-            method: 'eth_sendTransaction',
-            params: [transactionParameters],
-        });
-    return {
-        success: true,
-        status: "✅ Check out your transaction on Etherscan: https://ropsten.etherscan.io/tx/" + txHash
-    }
-    } catch (error) {
-    return {
-        success: false,
-        status: "😥 Something went wrong: " + error.message
-    }
-
-    }
+  }
 }
 
 export const smallAdEvent = async () => {
@@ -384,16 +358,16 @@ export const smallAdEvent = async () => {
 
 export const mediumAdEvent = async () => {
   window.contract = await new web3.eth.Contract(contractABI, contractAddress);
-  const mediumAdEvent = "0x0000000000000000000000000297196d753045df822c67d23f9ab10c7128b102"
-  const response = await fetch(`https://api-rinkeby.etherscan.io/api?module=logs&action=getLogs&fromBlock=3792247&toBlock=latest&address=${contractAddress}&topic1=${mediumAdEvent}&apikey=${etherScanAPIKey}`)
+  const mediumAdEvent = "0x12f661696b84d228d6f82cb29742d94632c4548ef7637cf65f071ab0f5df2424"
+  const response = await fetch(`https://api-rinkeby.etherscan.io/api?module=logs&action=getLogs&fromBlock=3792247&toBlock=latest&address=${contractAddress}&topic0=${mediumAdEvent}&apikey=${etherScanAPIKey}`)
   const data = await response.json();
   console.log(data)
 }
 
 export const bigAdEvent = async () => {
   window.contract = await new web3.eth.Contract(contractABI, contractAddress);
-  const bigAdEvent = "0x0000000000000000000000000297196d753045df822c67d23f9ab10c7128b102"
-  const response = await fetch(`https://api-rinkeby.etherscan.io/api?module=logs&action=getLogs&fromBlock=3792247&toBlock=latest&address=${contractAddress}&topic1=${bigAdEvent}&apikey=${etherScanAPIKey}`)
+  const bigAdEvent = "0xa343efaece2ee7bc9af8e14caa3b2f0465744660fd6b761cd0e78ab0d4f41993"
+  const response = await fetch(`https://api-rinkeby.etherscan.io/api?module=logs&action=getLogs&fromBlock=3792247&toBlock=latest&address=${contractAddress}&topic0=${bigAdEvent}&apikey=${etherScanAPIKey}`)
   const data = await response.json();
   console.log(data)
 }
@@ -404,4 +378,17 @@ export const adBought = async () => {
   const response = await fetch(`https://api-rinkeby.etherscan.io/api?module=logs&action=getLogs&fromBlock=3792247&toBlock=latest&address=${contractAddress}&topic1=${adBoughtEvent}&apikey=${etherScanAPIKey}`)
   const data = await response.json();
   console.log(data)
+}
+
+export const getNumberOfAds = async () => {
+  window.contract = await new web3.eth.Contract(contractABI, contractAddress);
+  
+  await window.contract.methods.getAdsCounter().call(function (err, res) {
+      if (err) {
+        console.log("An error occured", err)
+      }
+      console.log(res)
+      
+      return JSON.stringify(res)
+  });
 }
