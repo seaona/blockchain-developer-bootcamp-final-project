@@ -109,6 +109,24 @@ contract AdsManager is Pausable {
     function getTotalAdAreaAvailable() public view returns(uint256) {
         return totalAdAreaTaken;
     }
+
+    /// @dev Get Ad Owner
+    /// @return Address of Ad Owner
+    function getAdOwner(uint32 _id) public view returns(address) {
+        return ads[_id].owner;
+    }
+
+    /// @dev Get Ad status
+    /// @return enum status: ForSale or Sold
+    function getAdStatus(uint32 _id) public view returns(State) {
+        return ads[_id].state;
+    }
+
+    /// @dev Get Ad size
+    /// @return enum size: Big, Medium, Small
+    function getAdSize(uint32 _id) public view returns(Size) {
+        return ads[_id].size;
+    }
     /********************************************************************************************/
     /*                                     SMART CONTRACT FUNCTIONS                             */
     /********************************************************************************************/
@@ -173,6 +191,7 @@ contract AdsManager is Pausable {
         return totalAdAreaAvailable;
     }
 
+    /// @dev Revoke Ad from Brand
     function revokeAdFromBrand(uint32 _adId) public onlyOwner whenNotPaused returns (bool) {
         require(ads[_adId].state == State.Sold, "This Advertisement space is already available");
 
@@ -198,29 +217,25 @@ contract AdsManager is Pausable {
     }
 
     /// @dev Brand buys Advertisement Area
-    function buyAdArea(uint32 _adId, bytes32 _brand) public payable paidEnough(_adId) whenNotPaused {
+    function buyAdArea(uint32 _adId) public payable paidEnough(_adId) whenNotPaused {
         require(ads[_adId].state == State.ForSale, "Ad Area is not for Sale");
-        uint256 requiredSpace =0;
 
-        if(ads[_adId].size==Size.Big) {
-            requiredSpace = 50;
-        }
-        if(ads[_adId].size==Size.Medium) {
-            requiredSpace = 25;
-        }
-
-        if(ads[_adId].size==Size.Small) {
-            requiredSpace = 10;
-        }
-            
-        totalAdAreaAvailable = totalAdAreaAvailable - requiredSpace;
         uint256 amountToRefund = msg.value - ads[_adId].price;
         ads[_adId].owner = payable(msg.sender);
         ads[_adId].owner.transfer(amountToRefund);
         ads[_adId].state = State.Sold;
-        ads[_adId].brand = _brand;
 
         emit AdAreaBought(_adId);
+    }
+
+    /// @dev Give back Ad ownership to website owner
+    function handOverOwnership(uint32 _adId) public whenNotPaused returns (bool) {
+        require(ads[_adId].owner == msg.sender, "You are not the owner of this Ad");
+
+        ads[_adId].state = State.ForSale;
+        ads[_adId].owner = payable(0x0297196d753045df822C67d23F9aB10c7128b102);
+
+        return true;
     }
 
 

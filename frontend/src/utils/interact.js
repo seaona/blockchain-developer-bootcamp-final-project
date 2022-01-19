@@ -4,7 +4,7 @@ const { createAlchemyWeb3 } = require("@alch/alchemy-web3");
 const web3 = createAlchemyWeb3(alchemyKey); 
 
 const contractABI = require('../contract-abi.json')
-const contractAddress = "0x545bD48dD06F53Ce58056f401F0F726451c95c60";
+const contractAddress = "0xC50E2d682B582e634bbf0c9907645060655B0011";
 const etherScanAPIKey = process.env.ETHERSCAN_API_KEY;
 /********************************************************************************************/
 /*                                 WALLET CONNECTION FUNCTIONS                              */
@@ -317,7 +317,7 @@ export const revokeAdFromBrand = async(adId) => {
 /*                                       BUYER FUNCTIONS                                    */
 /********************************************************************************************/
 
-export const buyAdArea = async(_id, _brand) => {
+export const buyAdArea = async(_id, value) => {
   //load smart contract
   window.contract = await new web3.eth.Contract(contractABI, contractAddress);
 
@@ -325,7 +325,8 @@ export const buyAdArea = async(_id, _brand) => {
   const transactionParameters = {
       to: contractAddress, // Required except during contract publications.
       from: window.ethereum.selectedAddress, // must match user's active address.
-      'data': window.contract.methods.buyAdArea(_id, _brand).encodeABI()
+      value:  (value).toString(16),
+      'data': window.contract.methods.buyAdArea(_id).encodeABI()
   };
 
   //sign the transaction via Metamask
@@ -348,47 +349,90 @@ export const buyAdArea = async(_id, _brand) => {
   }
 }
 
-export const smallAdEvent = async () => {
+export const handOverOwnership = async(_id) => {
+  //load smart contract
   window.contract = await new web3.eth.Contract(contractABI, contractAddress);
-  const smallAdEvent = "0x0000000000000000000000000297196d753045df822c67d23f9ab10c7128b102"
-  const response = await fetch(`https://api-rinkeby.etherscan.io/api?module=logs&action=getLogs&fromBlock=3792247&toBlock=latest&address=${contractAddress}&topic1=${smallAdEvent}&apikey=${etherScanAPIKey}`)
-  const data = await response.json();
-  console.log(data)
+
+  //set up your Ethereum transaction
+  const transactionParameters = {
+      to: contractAddress, // Required except during contract publications.
+      from: window.ethereum.selectedAddress, // must match user's active address.
+      'data': window.contract.methods.handOverOwnership(_id).encodeABI()
+  };
+
+  //sign the transaction via Metamask
+  try {
+  const txHash = await window.ethereum
+      .request({
+          method: 'eth_sendTransaction',
+          params: [transactionParameters],
+      });
+  return {
+      success: true,
+      status: "✅ Check out your transaction on Etherscan: https://rinkeby.etherscan.io/tx/" + txHash
+  }
+  } catch (error) {
+  return {
+      success: false,
+      status: "😥 Something went wrong: " + error.message
+  }
+
+  }
 }
 
-export const mediumAdEvent = async () => {
+/********************************************************************************************/
+/*                                       GETTER FUNCTIONS                                   */
+/********************************************************************************************/
+export const getNumberOfAds = async() => {
+  //load smart contract
   window.contract = await new web3.eth.Contract(contractABI, contractAddress);
-  const mediumAdEvent = "0x12f661696b84d228d6f82cb29742d94632c4548ef7637cf65f071ab0f5df2424"
-  const response = await fetch(`https://api-rinkeby.etherscan.io/api?module=logs&action=getLogs&fromBlock=3792247&toBlock=latest&address=${contractAddress}&topic0=${mediumAdEvent}&apikey=${etherScanAPIKey}`)
-  const data = await response.json();
-  console.log(data)
+
+  let numberAds = await window.contract.methods.getAdsCounter().call();
+  console.log(numberAds)
+  return numberAds;
 }
 
-export const bigAdEvent = async () => {
+export const getAdOwnership = async (id) => {
+  //load smart contract
   window.contract = await new web3.eth.Contract(contractABI, contractAddress);
-  const bigAdEvent = "0xa343efaece2ee7bc9af8e14caa3b2f0465744660fd6b761cd0e78ab0d4f41993"
-  const response = await fetch(`https://api-rinkeby.etherscan.io/api?module=logs&action=getLogs&fromBlock=3792247&toBlock=latest&address=${contractAddress}&topic0=${bigAdEvent}&apikey=${etherScanAPIKey}`)
-  const data = await response.json();
-  console.log(data)
+
+  let adOwner = await window.contract.methods.getAdOwner(id).call();
+  console.log(adOwner)
+  return adOwner;
 }
 
-export const adBought = async () => {
+export const getAdStatus = async (id) => {
+  //load smart contract
   window.contract = await new web3.eth.Contract(contractABI, contractAddress);
-  const adBoughtEvent = "0x0000000000000000000000000297196d753045df822c67d23f9ab10c7128b102"
-  const response = await fetch(`https://api-rinkeby.etherscan.io/api?module=logs&action=getLogs&fromBlock=3792247&toBlock=latest&address=${contractAddress}&topic1=${adBoughtEvent}&apikey=${etherScanAPIKey}`)
-  const data = await response.json();
-  console.log(data)
+
+  let adStatus = await window.contract.methods.getAdStatus(1).call();
+  console.log(adStatus)
+  return adStatus;
 }
 
-export const getNumberOfAds = async () => {
+export const getAdSize = async (id) => {
+  //load smart contract
   window.contract = await new web3.eth.Contract(contractABI, contractAddress);
-  
-  await window.contract.methods.getAdsCounter().call(function (err, res) {
-      if (err) {
-        console.log("An error occured", err)
-      }
-      console.log(`Number of ads: ${res}`)
-      
-      return JSON.stringify(res)
+
+  let adSize = await window.contract.methods.getAdSize(1).call();
+  console.log(adSize)
+  return adSize;
+}
+
+export const isAddressOwner = async (id) => {
+  var adOwnership = await getAdOwnership(id);
+  const addressArray = await window.ethereum.request({
+    method: "eth_accounts",
   });
+
+  var currentAddress = addressArray[0].toUpperCase();
+  
+  if(adOwnership.toUpperCase()==currentAddress.toUpperCase()) {
+    return true
+
+  } else {
+
+    return false
+  }
+
 }

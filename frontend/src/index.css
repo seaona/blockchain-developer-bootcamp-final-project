@@ -125,9 +125,19 @@ button {
   padding-top: 5rem;
 }
 
-.buyButton {
+.renounceButton {
   color: #ff6f59;
   border-color: #ff6f59;
+  padding: 4px 8px;
+  max-height: 30px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-top: 1rem;
+}
+
+.buyButton {
+  color: #50D8D7;
+  border-color: #50D8D7;
   padding: 4px 8px;
   max-height: 30px;
   font-size: 12px;

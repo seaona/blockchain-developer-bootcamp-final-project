@@ -10,7 +10,8 @@ import {
   revokeAdFromBrand,
   buyAdArea,
   smallAdEvent,
-  getNumberOfAds
+  getNumberOfAds,
+  isAddressOwner
 } from "./utils/interact";
 
 import Ads from "./container/Ads";
@@ -23,6 +24,9 @@ const AdsManager = (props) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [url, setURL] = useState("");
+  var owner0 = true;
+  var owner1 = true;
+  var owner2 = true;
 
   useEffect(async () => {
     const {address, status} = await getCurrentWalletConnected();
@@ -31,12 +35,16 @@ const AdsManager = (props) => {
     getNumberOfAds();
 
     addWalletListener(); 
+
   }, []);
 
   const connectWalletPressed = async () => {
     const walletResponse = await connectWallet();
     setStatus(walletResponse.status);
     setWallet(walletResponse.address);
+    owner0 = await isAddressOwner(0)
+    owner1 = await isAddressOwner(1)
+    owner2 = await isAddressOwner(2)
   };
 
   const onResumePressed = async () => {
@@ -70,10 +78,16 @@ const AdsManager = (props) => {
   }
   function addWalletListener() {
     if (window.ethereum) {
-      window.ethereum.on("accountsChanged", (accounts) => {
+      window.ethereum.on("accountsChanged", async (accounts) => {
         if (accounts.length > 0) {
           setWallet(accounts[0]);
           setStatus("Wallet connected.");
+          owner0 = await isAddressOwner(0)
+          owner1 = await isAddressOwner(1)
+          owner2 = await isAddressOwner(2)
+          console.log(owner0)
+          console.log(owner1)
+          console.log(owner2)
         } else {
           setWallet("");
           setStatus("🦊 Connect to Metamask using the top right button.");
@@ -139,7 +153,7 @@ const AdsManager = (props) => {
           {status}
         </p>
         </div>
-      <Ads ads={getAds}/>
+      <Ads ads={getAds} owner0={owner0} owner1={owner1} owner2={owner2}/>
     </div>
   );
 };

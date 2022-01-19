@@ -70,7 +70,10 @@ This is the example of the run of the following commands:
 
 ```truffle compile```
 
-3. Migrate contracts on the desired network:
+3. Start truffle development environment:
+```truffle dev```
+
+4. Migrate contracts on the desired network:
 
 ```
 (truffle) migrate --reset --network develop
@@ -79,7 +82,7 @@ This is the example of the run of the following commands:
 (truffle) migrate --reset --network bsctestnet
 (truffle) migrate --reset --network bsc
 ```
-4. Run Smart Contract Unit Tests:
+5. Run Smart Contract Unit Tests:
 
 ```truffle compile```
 

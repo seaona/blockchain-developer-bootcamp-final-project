@@ -1,8 +1,8 @@
 import React from 'react'
-import { buyAdArea } from "../utils/interact";
+import { buyAdArea, getNumberOfAds, getAdOwnership, getAdStatus, getAdSize, isAddressOwner } from "../utils/interact";
 
 const onBuyBigAd = async () => {
-  const { status } = await buyAdArea(1, "brand");
+  const { status } = await buyAdArea(0, 500);
   return status;
 };
 
