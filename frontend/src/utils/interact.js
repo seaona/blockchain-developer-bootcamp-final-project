@@ -405,9 +405,14 @@ export const getAdStatus = async (id) => {
   //load smart contract
   window.contract = await new web3.eth.Contract(contractABI, contractAddress);
 
-  let adStatus = await window.contract.methods.getAdStatus(1).call();
+  let adStatus = await window.contract.methods.getAdStatus(id).call();
   console.log(adStatus)
-  return adStatus;
+  if(adStatus==0){
+    return "For Sale"
+  }
+  else{
+    return "Not for Sale"
+  }
 }
 
 export const getAdSize = async (id) => {
@@ -428,6 +433,7 @@ export const isAddressOwner = async (id) => {
   var currentAddress = addressArray[0].toUpperCase();
   
   if(adOwnership.toUpperCase()==currentAddress.toUpperCase()) {
+    console.log("egual")
     return true
 
   } else {

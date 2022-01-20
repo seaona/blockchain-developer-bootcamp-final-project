@@ -28,7 +28,7 @@ code {
 }
 
 .Advertisement {
-  margin-top: auto;
+  margin-top: 0.2;
   margin-bottom: auto;
   margin-right: 2rem;
 }
@@ -65,6 +65,7 @@ button {
 
 #title {
   padding-top: 32px;
+
 }
 
 #status {
@@ -98,31 +99,34 @@ button {
 .small-ad {
   background-color: #404040;
   color: white;
-  height: 6rem;
-  width: 15rem;
+  height: 9rem;
+  width: 20rem;
   text-align: center;
   margin-bottom: 0.5rem;
-  padding-top: 1.5rem;
+  padding-top: 0.5rem;
+  padding-bottom: 1rem;
 }
 
 .medium-ad {
   background-color: #404040;
   color: white;
-  height: 7rem;
-  width: 15rem;
+  height: 10rem;
+  width: 20rem;
   text-align: center;
   margin-bottom: 1rem;
-  padding-top: 3.5rem;
+  padding-top: 0.5rem;
+  padding-bottom: 2rem;
 }
 
 .big-ad {
   background-color: #404040;
   color: white;
   height: 10rem;
-  width: 15rem;
+  width: 20rem;
   text-align: center;
   margin-bottom: 1rem;
-  padding-top: 5rem;
+  padding-top: 0.5rem;
+  padding-bottom: 8rem;
 }
 
 .renounceButton {
@@ -132,7 +136,7 @@ button {
   max-height: 30px;
   font-size: 12px;
   font-weight: 600;
-  margin-top: 1rem;
+  margin-top: 2rem;
 }
 
 .buyButton {
@@ -145,7 +149,68 @@ button {
   margin-top: 1rem;
 }
 
-.adText {
+.renounceButton1 {
+  color: #ff6f59;
+  border-color: #ff6f59;
+  padding: 4px 8px;
+  max-height: 30px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-top: 1rem;
+
+}
+
+.buyButton1 {
+  color: #50D8D7;
+  border-color: #50D8D7;
+  padding: 4px 8px;
+  max-height: 30px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-top: 1rem;
+}
+
+.renounceButton2 {
+  color: #ff6f59;
+  border-color: #ff6f59;
+  padding: 4px 8px;
+  max-height: 30px;
+  font-size: 12px;
+  font-weight: 600;
   margin-top: 0.5rem;
+
+}
+
+.buyButton2 {
+  color: #50D8D7;
+  border-color: #50D8D7;
+  padding: 4px 8px;
+  max-height: 30px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-top: 0.5rem;
+}
+
+.adText {
+  margin-top: 0.2rem;
   font-size: 0.8rem;
+}
+.adTitle {
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.bigStatus {
+  padding-top: 1rem;
+  font-weight: 600;
+}
+
+.bigStatus1 {
+  padding-top: 0.5rem;
+  font-weight: 600;
+}
+
+.bigStatus2 {
+  padding-top: 0rem;
+  font-weight: 600;
 }
