@@ -33,6 +33,7 @@ This project aims to become a tool for selling space on your website for adverti
 6. The website owner can take down existing ads.
 7. The website owner can also Pause or Resume the contract
 
+![workflow](public/ad-workflow.gif)
 **Note**: Further tokenomics must be defined, like how often the ownership can be changed (i.e. days / months) until a new auction is open again
 
 ## Live Working Version
